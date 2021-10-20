@@ -4,10 +4,10 @@
 
 public class App {
     public static void main (String[] args) throws Exception {
-        Indexer indexer = new Indexer();
-        Searcher searcher = new Searcher();
+        Indexer letsinsdex = new Indexer();
+        Searcher letssearch = new Searcher();
 
-        indexer.indexMethod();
-        searcher.searchMethod();
+        letsinsdex.indexMethod();
+        letssearch.searchMethod();
     }
 }
