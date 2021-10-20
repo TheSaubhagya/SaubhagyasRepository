@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * The base source code from the Lucene website was modified as part of my submission for
- * the module 'Information Retrieval and Web Search (CS7IS3)' in Trinity College Dublin.
+ 
  */
 
 import java.io.BufferedReader;
@@ -43,7 +42,7 @@ import org.apache.lucene.store.FSDirectory;
 
 public class Indexer {
 
-    /** Index all text files under a directory. */
+    /** We shall be indexing files here */
     public void indexMethod() {
         String indexPath = "index";
         String docsPath = "cran/cran.all.1400";
@@ -51,7 +50,7 @@ public class Indexer {
         final Path docDir = Paths.get(docsPath);
 
         if (!Files.isReadable(docDir)) {
-            System.out.println("Document directory '" + docDir.toAbsolutePath() + "' does not exist or is not readable, please check the path");
+            System.out.println("Document directory '" + docDir.toAbsolutePath() + "' NOT FOUND.");
             System.exit(1);
         }
 
@@ -61,37 +60,22 @@ public class Indexer {
 
             Directory dir = FSDirectory.open(Paths.get(indexPath));
 
-            //Analyzer analyzer = new SimpleAnalyzer();
-            //Analyzer analyzer = new WhitespaceAnalyzer();
-            //Analyzer analyzer = new StandardAnalyzer();
+            
             Analyzer analyzer = new EnglishAnalyzer();
 
             IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
 
-            //BM25 Similarity
+            //Setting the BM25 Similarity
             iwc.setSimilarity(new BM25Similarity());
 
-            //Classic Similarity
-            //iwc.setSimilarity(new ClassicSimilarity());
-
-            //LMDirichletSimilarity
-            //iwc.setSimilarity(new LMDirichletSimilarity());
-
-            //Trying a multi similarity model
-            //iwc.setSimilarity(new MultiSimilarity(new Similarity[]{new BM25Similarity(),new ClassicSimilarity()}));
-
-            //Trying another multi similarity model
-            //iwc.setSimilarity(new MultiSimilarity(new Similarity[]{new BM25Similarity(),new LMDirichletSimilarity()}));
-
-            //Trying another multi similarity model
-            //iwc.setSimilarity(new MultiSimilarity(new Similarity[]{new ClassicSimilarity(),new LMDirichletSimilarity()}));
+            
 
             iwc.setOpenMode(OpenMode.CREATE);
 
             IndexWriter writer = new IndexWriter(dir, iwc);
             indexDoc(writer, docDir);
 
-            //Using writer.forceMerge to maximise search performance.
+            //Increases efficiency (https://www.tabnine.com/code/java/methods/org.apache.lucene.index.IndexWriter/forceMerge)
             writer.forceMerge(1);
 
             writer.close();
@@ -104,7 +88,7 @@ public class Indexer {
         }
     }
 
-    /** Indexes the 'cran.all.1400' file */
+    /** Now, Indexing the cran.all.1400 file */
     static void indexDoc(IndexWriter writer, Path file) throws IOException {
         try (InputStream stream = Files.newInputStream(file)) {
 
@@ -118,10 +102,7 @@ public class Indexer {
             while(currentLine != null){
                 Document doc = new Document();
                 if(currentLine.startsWith(".I")){
-                    /*
-                     * I think the ID of the document does not make sense to be analysed,
-                     * hence it is just directly stored without any analysis.
-                     */
+                    
                     doc.add(new StringField("id", currentLine.substring(3), Field.Store.YES));
                     currentLine = bufferedReader.readLine();
                 }
@@ -150,8 +131,8 @@ public class Indexer {
                         currentLine = bufferedReader.readLine();
                     }
                     /*
-                     * After a bit of analysis, I found that for this dataset, analysing
-                     * and storing bibliography details proved to be slightly inefficient.
+                     * For bibliography 
+          
                      */
                     doc.add(new StringField("bibliography", fullText, Field.Store.YES));
                     fullText = "";
