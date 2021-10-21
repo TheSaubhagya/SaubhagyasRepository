@@ -73,7 +73,7 @@ public class TheOneSearching {
             queryString = queryString.trim();
             Query query = parser.parse(QueryParser.escape(queryString));
             queryString = "";
-            performSearch(searcher, writer, Integer.parseInt(id), query);
+            searchDoing(searcher, writer, Integer.parseInt(id), query);
         }
 
         System.out.println("Cool. Now check the 'results.txt' file. :) ");
@@ -82,8 +82,8 @@ public class TheOneSearching {
     }
 
 
-    // Performs search and writes results to the writer
-    public static void performSearch(IndexSearcher searcher, PrintWriter writer, Integer queryNumber, Query query) throws IOException {
+    // Searching and creating into a text file
+    public static void searchDoing(IndexSearcher searcher, PrintWriter writer, Integer queryNumber, Query query) throws IOException {
         /*
          * Only 1000 out of 1400 hits have been kept in order to achieve higher efficiency
         
