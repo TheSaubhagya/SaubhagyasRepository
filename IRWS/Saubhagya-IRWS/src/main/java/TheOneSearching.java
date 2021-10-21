@@ -43,7 +43,7 @@ import org.apache.lucene.search.similarities.*;
 import org.apache.lucene.store.FSDirectory;
 
 /** Simple command-line based search demo. */
-public class Searcher {
+public class TheOneSearching {
 
     public void searchMethod() throws Exception {
 
