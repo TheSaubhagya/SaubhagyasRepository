@@ -4,7 +4,7 @@
 
 public class LetsRunThisApp {
     public static void main (String[] args) throws Exception {
-        Indexer letsinsdex = new Indexer();
+        AllIndexFunctions letsinsdex = new Indexer();
         Searcher letssearch = new Searcher();
 
         letsinsdex.indexMethod();
