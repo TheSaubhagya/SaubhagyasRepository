@@ -53,9 +53,7 @@ public class TheOneSearching {
         IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
         IndexSearcher searcher = new IndexSearcher(reader);
 
-        //Analyzer analyzer = new SimpleAnalyzer();
-        //Analyzer analyzer = new WhitespaceAnalyzer();
-        //Analyzer analyzer = new StandardAnalyzer();
+       
         Analyzer analyzer = new EnglishAnalyzer();
 
         String results_path = "results.txt";
@@ -64,20 +62,7 @@ public class TheOneSearching {
         //BM25 Similarity
         searcher.setSimilarity(new BM25Similarity());
 
-        //Classic Similarity
-        //searcher.setSimilarity(new ClassicSimilarity());
-
-        //LMDirichletSimilarity
-        //searcher.setSimilarity(new LMDirichletSimilarity());
-
-        //Trying a multi similarity model
-        //searcher.setSimilarity(new MultiSimilarity(new Similarity[]{new BM25Similarity(),new ClassicSimilarity()}));
-
-        //Trying another multi similarity model
-        //searcher.setSimilarity(new MultiSimilarity(new Similarity[]{new BM25Similarity(),new LMDirichletSimilarity()}));
-
-        //Trying another multi similarity model
-        //searcher.setSimilarity(new MultiSimilarity(new Similarity[]{new ClassicSimilarity(),new LMDirichletSimilarity()}));
+        
 
         String queriesPath = "cran/cran.qry";
         BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(queriesPath), StandardCharsets.UTF_8);
@@ -85,7 +70,7 @@ public class TheOneSearching {
 
         String currentLine = bufferedReader.readLine();
 
-        System.out.println("Reading in queries and creating search results.");
+        System.out.println("Search results being created. Have patience.");
 
         String id = "";
         int i=0;
@@ -109,7 +94,7 @@ public class TheOneSearching {
             performSearch(searcher, writer, Integer.parseInt(id), query);
         }
 
-        System.out.println("Results have been written to the 'results.txt' file.");
+        System.out.println("Cool. Now check the 'results.txt' file. :) ");
         writer.close();
         reader.close();
     }
@@ -118,15 +103,13 @@ public class TheOneSearching {
     // Performs search and writes results to the writer
     public static void performSearch(IndexSearcher searcher, PrintWriter writer, Integer queryNumber, Query query) throws IOException {
         /*
-         * After a bit of analysis, I found that since the dataset is pretty small,
-         * the number of top hits can be kept at 1400 (which is the total no. of docs)
-         * but to be on the safe side, I left it at 999 to keep the efficiency high
-         * as per the documentation.
+         * Only 1000 out of 1400 hits have been kept in order to achieve higher efficiency
+        
          */
-        TopDocs results = searcher.search(query, 999);
+        TopDocs results = searcher.search(query, 1000);
         ScoreDoc[] hits = results.scoreDocs;
 
-        // To write the results for each hit in the format expected by the trec_eval tool.
+        //Results writing for each of the hits. 
         for (int i = 0; i < hits.length; i++) {
             Document doc = searcher.doc(hits[i].doc);
             writer.println(queryNumber + " 0 " + doc.get("id") + " " + i + " " + hits[i].score + " Saubhagya");
