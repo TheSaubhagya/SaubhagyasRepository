@@ -56,7 +56,7 @@ public class AllIndexFunctions {
             iwc.setOpenMode(OpenMode.CREATE);
 
             IndexWriter writer = new IndexWriter(dir, iwc);
-            indexDoc(writer, docDir);
+            documentingIndex(writer, docDir);
 
             //Increases efficiency (https://www.tabnine.com/code/java/methods/org.apache.lucene.index.IndexWriter/forceMerge)
             writer.forceMerge(1);
@@ -72,7 +72,7 @@ public class AllIndexFunctions {
     }
 
     /** Now, Indexing the cran.all.1400 file */
-    static void indexDoc(IndexWriter writer, Path file) throws IOException {
+    static void documentingIndex(IndexWriter writer, Path file) throws IOException {
         try (InputStream stream = Files.newInputStream(file)) {
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
