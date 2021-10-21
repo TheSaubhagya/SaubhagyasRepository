@@ -1,5 +1,5 @@
 /*
- * An entry point to the entire program with the 'main()' method.
+ * This is the main Program to be run. 
  */
 
 public class LetsRunThisApp {
