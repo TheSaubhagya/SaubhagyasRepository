@@ -40,7 +40,7 @@ import org.apache.lucene.search.similarities.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-public class Indexer {
+public class AllIndexFunctions {
 
     /** We shall be indexing files here */
     public void indexMethod() {
