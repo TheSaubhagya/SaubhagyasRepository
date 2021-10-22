@@ -24,7 +24,7 @@ import org.apache.lucene.store.FSDirectory;
 /** Here's showing the search command */
 public class TheOneSearching {
 
-    public void searchMethod() throws Exception {
+    public void methodForSearch() throws Exception {
 
         String index = "Indexes_Store";
         String queryString = "";
