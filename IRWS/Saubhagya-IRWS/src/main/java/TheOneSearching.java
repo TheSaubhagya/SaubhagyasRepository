@@ -29,7 +29,7 @@ public class TheOneSearching {
 
     public void searchMethod() throws Exception {
 
-        String index = "index";
+        String index = "Indexes_Store";
         String queryString = "";
 
         IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
