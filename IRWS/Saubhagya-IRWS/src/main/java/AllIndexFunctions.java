@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,12 +83,14 @@ public class AllIndexFunctions {
 
             while(currentLine != null){
                 Document doc = new Document();
-                if(currentLine.startsWith(".I")){
+                switch(currentLine.SubString(0, 2)){
+
+                case ".I":
                     
                     doc.add(new StringField("id", currentLine.substring(3), Field.Store.YES));
                     currentLine = bufferedReader.readLine();
-                }
-                if (currentLine.startsWith(".T")){
+                
+                case ".T":
                     currentLine = bufferedReader.readLine();
                     while(!currentLine.startsWith(".A")){
                         fullText += currentLine + " ";
@@ -97,8 +98,8 @@ public class AllIndexFunctions {
                     }
                     doc.add(new TextField("title", fullText, Field.Store.YES));
                     fullText = "";
-                }
-                if (currentLine.startsWith(".A")){
+                
+                case ".A":
                     currentLine = bufferedReader.readLine();
                     while(!currentLine.startsWith(".B")){
                         fullText += currentLine + " ";
@@ -106,8 +107,8 @@ public class AllIndexFunctions {
                     }
                     doc.add(new TextField("author", fullText, Field.Store.YES));
                     fullText = "";
-                }
-                if (currentLine.startsWith(".B")){
+                
+                case ".B":
                     currentLine = bufferedReader.readLine();
                     while(!currentLine.startsWith(".W")){
                         fullText += currentLine + " ";
@@ -119,8 +120,8 @@ public class AllIndexFunctions {
                      */
                     doc.add(new StringField("bibliography", fullText, Field.Store.YES));
                     fullText = "";
-                }
-                if (currentLine.startsWith(".W")){
+                
+                case ".W":
                     currentLine = bufferedReader.readLine();
                     while(currentLine != null && !currentLine.startsWith(".I")){
                         fullText += currentLine + " ";
@@ -135,4 +136,3 @@ public class AllIndexFunctions {
         }
     }
 }
-
