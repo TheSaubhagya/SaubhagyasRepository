@@ -76,7 +76,7 @@ public class TheOneSearching {
 
         System.out.println("Cool. Now check the 'results.txt' file. :) ");
         writer.close();
-        reader.close();
+        brushup.close();
     }
 
 
