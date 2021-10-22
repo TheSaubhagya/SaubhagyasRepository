@@ -82,10 +82,7 @@ public class TheOneSearching {
 
     // Searching and creating into a text file
     public static void searchDoing(IndexSearcher searcher, PrintWriter writer, Integer queryNumber, Query query) throws IOException {
-        /*
-         * Only 1000 out of 1400 hits have been kept in order to achieve higher efficiency
-        
-         */
+       
         TopDocs myGains = searcher.search(query, 1000);
         ScoreDoc[] ourhits = myGains.scoreDocs;
 
