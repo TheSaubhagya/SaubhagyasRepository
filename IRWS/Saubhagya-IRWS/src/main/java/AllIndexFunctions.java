@@ -78,41 +78,41 @@ public class AllIndexFunctions {
             Boolean first = true;
             System.out.println("Indexing documents.");
 
-            String currentLine = bufferedReader.readLine();
+            String thisArea = bufferedReader.readLine();
             String fullText = "";
 
-            while(currentLine != null){
+            while(thisArea != null){
                 Document doc = new Document();
-                switch(currentLine.SubString(0, 2)){
+                switch(thisArea.SubString(0, 2)){
 
                 case ".I":
                     
-                    doc.add(new StringField("id", currentLine.substring(3), Field.Store.YES));
-                    currentLine = bufferedReader.readLine();
+                    doc.add(new StringField("id", thisArea.substring(3), Field.Store.YES));
+                    thisArea = bufferedReader.readLine();
                 
                 case ".T":
-                    currentLine = bufferedReader.readLine();
-                    while(!currentLine.startsWith(".A")){
-                        fullText += currentLine + " ";
-                        currentLine = bufferedReader.readLine();
+                    thisArea = bufferedReader.readLine();
+                    while(!thisArea.startsWith(".A")){
+                        fullText += thisArea + " ";
+                        thisArea = bufferedReader.readLine();
                     }
                     doc.add(new TextField("title", fullText, Field.Store.YES));
                     fullText = "";
                 
                 case ".A":
-                    currentLine = bufferedReader.readLine();
-                    while(!currentLine.startsWith(".B")){
-                        fullText += currentLine + " ";
-                        currentLine = bufferedReader.readLine();
+                    thisArea = bufferedReader.readLine();
+                    while(!thisArea.startsWith(".B")){
+                        fullText += thisArea + " ";
+                        thisArea = bufferedReader.readLine();
                     }
                     doc.add(new TextField("author", fullText, Field.Store.YES));
                     fullText = "";
                 
                 case ".B":
-                    currentLine = bufferedReader.readLine();
-                    while(!currentLine.startsWith(".W")){
-                        fullText += currentLine + " ";
-                        currentLine = bufferedReader.readLine();
+                    thisArea = bufferedReader.readLine();
+                    while(!thisArea.startsWith(".W")){
+                        fullText += thisArea + " ";
+                        thisArea = bufferedReader.readLine();
                     }
                     /*
                      * For bibliography 
@@ -122,10 +122,10 @@ public class AllIndexFunctions {
                     fullText = "";
                 
                 case ".W":
-                    currentLine = bufferedReader.readLine();
-                    while(currentLine != null && !currentLine.startsWith(".I")){
-                        fullText += currentLine + " ";
-                        currentLine = bufferedReader.readLine();
+                    thisArea = bufferedReader.readLine();
+                    while(thisArea != null && !thisArea.startsWith(".I")){
+                        fullText += thisArea + " ";
+                        thisArea = bufferedReader.readLine();
                     }
                     //Not storing the words in an attempt to save storage space.
                     doc.add(new TextField("words", fullText, Field.Store.NO));
