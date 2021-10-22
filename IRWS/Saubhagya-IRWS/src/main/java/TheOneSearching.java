@@ -50,24 +50,25 @@ public class TheOneSearching {
         BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(queriesPath), StandardCharsets.UTF_8);
         MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[]{"title", "author", "bibliography", "words"}, analyzer);
 
-        String currentLine = bufferedReader.readLine();
+        String thisLine = bufferedReader.readLine();
 
         System.out.println("Search results being created. Have patience.");
 
         String id = "";
         int i=0;
 
-        while (currentLine != null) {
+        while (thisLine != null) {
             i++;
-            if (currentLine.startsWith(".I")) {
+            switch(thisLine.substring(0, 2)){
+            case ".I":
                 id = Integer.toString(i);
-                currentLine = bufferedReader.readLine();
-            }
-            if (currentLine.startsWith(".W")) {
-                currentLine = bufferedReader.readLine();
-                while (currentLine != null && !currentLine.startsWith(".I")) {
-                    queryString += currentLine + " ";
-                    currentLine = bufferedReader.readLine();
+                thisLine = bufferedReader.readLine();
+            
+            case ".W":
+                thisLine = bufferedReader.readLine();
+                while (thisLine != null && !thisLine.startsWith(".I")) {
+                    queryString += thisLine + " ";
+                    thisLine = bufferedReader.readLine();
                 }
             }
             queryString = queryString.trim();
