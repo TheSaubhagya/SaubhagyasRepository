@@ -79,7 +79,7 @@ public class AllIndexFunctions {
 
             while(thisArea != null){
                 Document doc = new Document();
-                switch(thisArea.SubString(0, 2)){
+                switch(thisArea.substring(0, 2)){
 
                 case ".I":
                     
