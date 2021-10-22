@@ -123,7 +123,7 @@ public class AllIndexFunctions {
                         fullText += thisArea + " ";
                         thisArea = bufferedReader.readLine();
                     }
-                    //Not storing the words in an attempt to save storage space.
+                    //Storage optimization
                     doc.add(new TextField("words", fullText, Field.Store.NO));
                     fullText = "";
                 }
