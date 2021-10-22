@@ -21,7 +21,7 @@ import org.apache.lucene.store.FSDirectory;
 public class AllIndexFunctions {
 
     /** We shall be indexing files here */
-    public void indexMethod() {
+    public void methodForIndex() {
         String indexPath = "Indexes_Store";
         String documentAddress = "cran/cran.all.1400";
 
