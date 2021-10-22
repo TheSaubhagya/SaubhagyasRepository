@@ -83,7 +83,7 @@ public class TheOneSearching {
     // Searching and creating into a text file
     public static void searchDoing(IndexSearcher searcher, PrintWriter writer, Integer queryNumber, Query query) throws IOException {
        
-        TopDocs myGains = searcher.search(query, 1000);
+        TopDocs myGains = searcher.search(query, 1400);
         ScoreDoc[] ourhits = myGains.scoreDocs;
 
         //Results writing for each of the hits. 
