@@ -10,9 +10,6 @@ import java.nio.file.Paths;
 import java.util.Date;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexWriter;
@@ -26,13 +23,13 @@ public class AllIndexFunctions {
 
     /** We shall be indexing files here */
     public void indexMethod() {
-        String indexPath = "index";
-        String docsPath = "cran/cran.all.1400";
+        String indexPath = "Indexes_Store";
+        String documentAddress = "cran/cran.all.1400";
 
-        final Path docDir = Paths.get(docsPath);
+        final Path documentCase = Paths.get(documentAddress);
 
-        if (!Files.isReadable(docDir)) {
-            System.out.println("Document directory '" + docDir.toAbsolutePath() + "' NOT FOUND.");
+        if (!Files.isReadable(documentCase)) {
+            System.out.println("Document directory '" + documentCase.toAbsolutePath() + "' NOT FOUND.");
             System.exit(1);
         }
 
@@ -55,7 +52,7 @@ public class AllIndexFunctions {
             iwc.setOpenMode(OpenMode.CREATE);
 
             IndexWriter writer = new IndexWriter(dir, iwc);
-            documentingIndex(writer, docDir);
+            documentingIndex(writer, documentCase);
 
             //Increases efficiency (https://www.tabnine.com/code/java/methods/org.apache.lucene.index.IndexWriter/forceMerge)
             writer.forceMerge(1);
