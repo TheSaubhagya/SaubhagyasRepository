@@ -7,7 +7,7 @@ public class LetsRunThisApp {
         AllIndexFunctions letsinsdex = new Indexer();
         TheOneSearching letssearch = new Searcher();
 
-        letsinsdex.indexMethod();
-        letssearch.searchMethod();
+        letsinsdex.methodForIndex();
+        letssearch.methodForSearch();
     }
 }
