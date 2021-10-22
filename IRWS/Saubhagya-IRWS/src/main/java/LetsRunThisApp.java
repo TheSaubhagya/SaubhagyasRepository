@@ -4,8 +4,8 @@
 
 public class LetsRunThisApp {
     public static void main (String[] args) throws Exception {
-        AllIndexFunctions letsinsdex = new Indexer();
-        TheOneSearching letssearch = new Searcher();
+        AllIndexFunctions letsinsdex = new AllIndexFunctions();
+        TheOneSearching letssearch = new TheOneSearching();
 
         letsinsdex.methodForIndex();
         letssearch.methodForSearch();
