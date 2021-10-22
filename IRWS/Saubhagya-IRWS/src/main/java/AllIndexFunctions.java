@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.*;
@@ -29,7 +28,7 @@ public class AllIndexFunctions {
         final Path documentCase = Paths.get(documentAddress);
 
         if (!Files.isReadable(documentCase)) {
-            System.out.println("Document directory '" + documentCase.toAbsolutePath() + "' NOT FOUND.");
+            System.out.println(documentCase.toAbsolutePath() + "' MISSING.");
             System.exit(1);
         }
 
