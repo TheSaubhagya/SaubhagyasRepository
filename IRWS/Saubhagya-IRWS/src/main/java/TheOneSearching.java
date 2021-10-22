@@ -92,7 +92,7 @@ public class TheOneSearching {
         //Results writing for each of the hits. 
         for (int i = 0; i < ourhits.length; i++) {
             Document doc = searcher.doc(ourhits[i].doc);
-            writer.println(queryNumber + " 0 " + doc.get("id") + " " + i + " " + ourhits[i].score + " Saubhagya");
+            writer.println(queryNumber + " 0 " + doc.get("id") + " " + i + " " + ourhits[i].score + " ssharma1@tcd.ie");
         }
     }
 }
