@@ -8,9 +8,6 @@ import java.nio.file.Paths;
 import java.io.PrintWriter;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -32,14 +29,14 @@ public class TheOneSearching {
         String index = "Indexes_Store";
         String queryString = "";
 
-        IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
-        IndexSearcher searcher = new IndexSearcher(reader);
+        IndexReader brushup = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
+        IndexSearcher searcher = new IndexSearcher(brushup);
 
        
         Analyzer analyzer = new EnglishAnalyzer();
 
-        String results_path = "results.txt";
-        PrintWriter writer = new PrintWriter(results_path, "UTF-8");
+        String resultsName = "finalResults.txt";
+        PrintWriter writer = new PrintWriter(resultsName, "UTF-8");
 
         //BM25 Similarity
         searcher.setSimilarity(new BM25Similarity());
@@ -89,13 +86,13 @@ public class TheOneSearching {
          * Only 1000 out of 1400 hits have been kept in order to achieve higher efficiency
         
          */
-        TopDocs results = searcher.search(query, 1000);
-        ScoreDoc[] hits = results.scoreDocs;
+        TopDocs myGains = searcher.search(query, 1000);
+        ScoreDoc[] ourhits = myGains.scoreDocs;
 
         //Results writing for each of the hits. 
-        for (int i = 0; i < hits.length; i++) {
-            Document doc = searcher.doc(hits[i].doc);
-            writer.println(queryNumber + " 0 " + doc.get("id") + " " + i + " " + hits[i].score + " Saubhagya");
+        for (int i = 0; i < ourhits.length; i++) {
+            Document doc = searcher.doc(ourhits[i].doc);
+            writer.println(queryNumber + " 0 " + doc.get("id") + " " + i + " " + ourhits[i].score + " Saubhagya");
         }
     }
 }
